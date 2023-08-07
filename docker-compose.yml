@@ -15,13 +15,14 @@ services:
       - MINIO_SERVER_URL=${MINIO_SERVER_URL}
       - MINIO_SERVER_REDIRECT_URL=${MINIO_SERVER_REDIRECT_URL}
     volumes:
-      - ./minio:/data
+      - minio_data:/data
     command: server --console-address :9001 /data
     networks:
       - siberiana-network
 
 volumes:
-  minio:
+  minio_data:
+    external: true
 
 networks:
   siberiana-network:
