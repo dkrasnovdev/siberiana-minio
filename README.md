@@ -53,7 +53,7 @@ Before you begin, ensure you have the following installed:
    To stop and remove the containers, run:
 
    ```bash
-   docker-compose down
+   docker-compose down -v
    ```
 
 ## Files
