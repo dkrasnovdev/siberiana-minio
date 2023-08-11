@@ -44,7 +44,7 @@ Before you begin, ensure you have the following installed:
 
 4. Access MinIO:
 
-   MinIO console will be available at: `http://localhost:9000` or the URL specified by `MINIO_SERVER_URL` if deployed. Use the provided access credentials specified in your .env file to log in. Generate an access key and secret key through the console.
+   MinIO console will be available at: `http://localhost:9001` or the URL specified by `MINIO_SERVER_REDIRECT_URL` if deployed. Use the provided access credentials specified in your .env file to log in. Generate an access key and secret key through the console.
 
 5. Update `.env`:
 
