@@ -1,8 +1,8 @@
 version: "3.9"
 
 services:
-  siberiana_minio_service:
-    container_name: siberiana_minio_service
+  minio:
+    container_name: minio
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -20,11 +20,11 @@ services:
     networks:
       - siberiana-network
 
-  create_minio_buckets:
-    container_name: create_minio_buckets
+  create_buckets:
+    container_name: create_buckets
     image: minio/mc
     depends_on:
-      - siberiana_minio_service
+      - minio
     entrypoint: >
       /bin/sh -c "
       /usr/bin/mc alias set storage ${MINIO_SERVER_URL} ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY};
@@ -41,7 +41,7 @@ services:
       - siberiana-network
 
 volumes:
-  siberiana_minio_service_data:
+  minio_data:
     external: true
 
 networks:
