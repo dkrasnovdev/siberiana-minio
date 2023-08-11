@@ -1,8 +1,8 @@
 version: "3.9"
 
 services:
-  siberiana_minio:
-    container_name: siberiana_minio
+  siberiana_minio_service:
+    container_name: siberiana_minio_service
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -14,8 +14,6 @@ services:
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
       - MINIO_SERVER_URL=${MINIO_SERVER_URL}
       - MINIO_SERVER_REDIRECT_URL=${MINIO_SERVER_REDIRECT_URL}
-      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
-      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
     volumes:
       - minio_data:/data
     command: server --console-address :9001 /data
@@ -26,10 +24,10 @@ services:
     container_name: create_minio_buckets
     image: minio/mc
     depends_on:
-      - minio
+      - siberiana_minio_service
     entrypoint: >
       /bin/sh -c "
-      /usr/bin/mc alias set storage http://siberiana_minio:9000 ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY};
+      /usr/bin/mc alias set storage ${MINIO_SERVER_URL} ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY};
       buckets=('default' 'artifacts' 'art' 'books');
 
       for bucket in $${buckets[@]}; do
@@ -43,7 +41,7 @@ services:
       - siberiana-network
 
 volumes:
-  minio_data:
+  siberiana_minio_service_data:
     external: true
 
 networks:
