@@ -36,19 +36,29 @@ Before you begin, ensure you have the following installed:
    # Edit .env file with your configuration
    ```
 
-3. Build and Start the Services:
+3. Build and Start the MinIO Service:
 
    ```bash
-   docker-compose up -d
+   docker-compose up minio -d
    ```
-
-   This will start the MinIO server and the bucket creation service.
 
 4. Access MinIO:
 
-   MinIO console will be available at: `http://localhost:9000`. Use the provided access credentials specified in your `.env` file to log in.
+   MinIO console will be available at: `http://localhost:9000` or the URL specified by `MINIO_SERVER_URL` if deployed. Use the provided access credentials specified in your .env file to log in. Generate an access key and secret key through the console.
 
-5. Clean Up:
+5. Update `.env`:
+
+   Update the .env file with the access and secret key obtained from the MinIO console.
+
+6. Run the Create Buckets Container:
+
+   Run the following command to create predefined in docker-compose buckets:
+
+   ```bash
+   docker-compose up create_buckets
+   ```
+
+7. Clean Up:
 
    To stop and remove the containers, run:
 
